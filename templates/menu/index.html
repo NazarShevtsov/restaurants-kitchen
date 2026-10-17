@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+	<h1>Menu management app</h1>
+
+  <ul>
+    <li>For our restaurants work {{ num_cooks }} cook{{ num_cooks|pluralize }}</li>
+    <li>We have {{ num_dishes }} dish{{ num_dishes|pluralize }} in our menu</li>
+  </ul>
+  
+  <p>You have already visited us {{ num_visits }} time{{ num_visits|pluralize }}</p>
+{% endblock %}
