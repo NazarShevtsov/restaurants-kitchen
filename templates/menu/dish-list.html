@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>These are all our dishes on the menu</h1>
+  <table>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Price</th>
+    </tr>
+    {% for dish in dish_list %}
+      <tr>
+        <td><a href="{% url "menu:dish-detail" pk=dish.id %}">{{ dish.id }}</a></td>
+        <td>{{ dish.name }}</td>
+        <td>{{ dish.dish_type }}</td>
+        <td>{{ dish.price }}</td>
+      </tr>
+    {% endfor %}
+  </table>
+
+{% endblock %}
