@@ -12,7 +12,7 @@
   <h2>Responsible for cooking: </h2>
   <ul>
     {% for cook in dish.cooks.all %}
-      <li>{{ cook.first_name }} {{ cook.last_name }}</li>
+      <li><a href="{% url 'menu:cook-detail' pk=cook.id %}">{{ cook.first_name }} {{ cook.last_name }}</a></li>
     {% endfor %}
   </ul>
 {% endblock %}
