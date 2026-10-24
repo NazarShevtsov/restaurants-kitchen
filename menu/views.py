@@ -62,3 +62,8 @@ class CookUpdateView(LoginRequiredMixin, generic.UpdateView):
     form_class = CookUpdateForm
     success_url = reverse_lazy("menu:cook-list")
     template_name = "menu/cook_update.html"
+
+
+class CookDeleteView(LoginRequiredMixin, generic.DeleteView):
+    model = Cook
+    success_url = reverse_lazy("menu:cook-list")

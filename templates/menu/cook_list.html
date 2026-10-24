@@ -13,6 +13,7 @@
       <th>Experience (years)</th>
       <th>Username</th>
       <th></th>
+      <th></th>
     </tr>
     {% for cook in cook_list %}
     	<tr>
@@ -23,6 +24,9 @@
         <td>{{ cook.username }}</td>
         <td>
           <a href="{% url 'menu:cook-update' pk=cook.id%}" style="text-decoration: none">Edit ✏️</a>
+        </td>
+        <td>
+          <a href="{% url 'menu:cook-delete' pk=cook.id%}" style="text-decoration: none">Delete 🗑️</a>
         </td>
       </tr>
     {% empty %}
