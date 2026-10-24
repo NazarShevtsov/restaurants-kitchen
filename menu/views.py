@@ -2,8 +2,10 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse
 from django.shortcuts import render
+from django.urls import reverse_lazy
 from django.views import generic
 
+from menu.forms import CookCreationForm
 from menu.models import Cook, Dish, DishType
 
 
@@ -37,6 +39,13 @@ class DishListView(LoginRequiredMixin, generic.ListView):
 
 class DishDetailView(LoginRequiredMixin, generic.DetailView):
     model = Dish
+
+
+class CookCreateView(LoginRequiredMixin, generic.CreateView):
+    model = Cook
+    form_class = CookCreationForm
+    success_url = reverse_lazy("menu:cook-list")
+    template_name = "menu/cook_create.html"
 
 
 class CookListView(LoginRequiredMixin, generic.ListView):

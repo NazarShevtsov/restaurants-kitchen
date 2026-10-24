@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <h1>Add new cook to your database</h1>
+
+  <form method="post" action="">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <input type="submit" value="Create" class="btn btn-primary">
+    <a href="{% url "menu:cook-list" %}" style="color: white; text-decoration: none" class="btn btn-danger">
+      Cancel
+    </a>
+  </form>
+
+
+{% endblock %}

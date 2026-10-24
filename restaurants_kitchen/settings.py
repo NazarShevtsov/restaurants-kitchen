@@ -69,6 +69,7 @@ TEMPLATES = [
         },
     },
 ]
+CRISPY_TEMPLATE_PACK = "bootstrap4"
 
 WSGI_APPLICATION = 'restaurants_kitchen.wsgi.application'
 

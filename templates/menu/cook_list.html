@@ -1,7 +1,9 @@
 {% extends "base.html" %}
 
 {% block content %}
-	<h1>Info of all our cooks</h1>
+  <h1>Info of all our cooks
+    <a href="{% url 'menu:cook-create' %}" class="btn btn-primary link-to-page">Add new cook</a>
+  </h1>
 
   <table>
     <tr>
