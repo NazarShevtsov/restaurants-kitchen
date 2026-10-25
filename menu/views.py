@@ -5,7 +5,7 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import generic
 
-from menu.forms import CookCreationForm, CookUpdateForm
+from menu.forms import CookCreationForm
 from menu.models import Cook, Dish, DishType
 
 
@@ -71,7 +71,7 @@ class CookDetailView(LoginRequiredMixin, generic.DetailView):
 
 class CookUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Cook
-    form_class = CookUpdateForm
+    fields = ("username", "first_name", "last_name", "years_of_experience")
     success_url = reverse_lazy("menu:cook-list")
     template_name = "menu/cook_update.html"
 
