@@ -2,10 +2,11 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse
 from django.shortcuts import render
+from django.template.defaultfilters import title
 from django.urls import reverse_lazy
 from django.views import generic
 
-from menu.forms import CookCreationForm, DishForm
+from menu.forms import CookCreationForm, DishForm, DishNameSearchForm
 from menu.models import Cook, Dish, DishType
 
 
@@ -47,6 +48,24 @@ class DishTypeDeleteView(LoginRequiredMixin, generic.DeleteView):
 class DishListView(LoginRequiredMixin, generic.ListView):
     model = Dish
     paginate_by = 5
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(DishListView, self).get_context_data(**kwargs)
+
+        name = self.request.GET.get("name", "")
+
+        context["search_form"] = DishNameSearchForm(initial={"name": name})
+        return context
+
+    def get_queryset(self):
+        form = DishNameSearchForm(self.request.GET)
+
+        if form.is_valid():
+            return Dish.objects.filter(
+                name__icontains=form.cleaned_data["name"]
+            )
+
+        return Dish.objects.all()
 
 
 class DishDetailView(LoginRequiredMixin, generic.DetailView):

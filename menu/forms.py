@@ -25,3 +25,7 @@ class DishForm(forms.ModelForm):
     class Meta:
         model = Dish
         fields = "__all__"
+
+
+class DishNameSearchForm(forms.Form):
+    name = forms.CharField(max_length=255, required=False)
