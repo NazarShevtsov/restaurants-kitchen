@@ -6,7 +6,7 @@ from django.template.defaultfilters import title
 from django.urls import reverse_lazy
 from django.views import generic
 
-from menu.forms import CookCreationForm, DishForm, DishNameSearchForm
+from menu.forms import CookCreationForm, DishForm, DishNameSearchForm, CookUsernameSearchForm
 from menu.models import Cook, Dish, DishType
 
 
@@ -99,6 +99,24 @@ class CookCreateView(LoginRequiredMixin, generic.CreateView):
 class CookListView(LoginRequiredMixin, generic.ListView):
     model = Cook
     paginate_by = 5
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(CookListView, self).get_context_data(**kwargs)
+
+        username = self.request.GET.get("username", "")
+
+        context["search_form"] = CookUsernameSearchForm(initial={"username": username})
+        return context
+
+    def get_queryset(self):
+        form = CookUsernameSearchForm(self.request.GET)
+
+        if form.is_valid():
+            return Cook.objects.filter(
+                username__icontains=form.cleaned_data["username"]
+            )
+
+        return Cook.objects.all()
 
 
 class CookDetailView(LoginRequiredMixin, generic.DetailView):

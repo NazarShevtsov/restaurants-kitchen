@@ -29,3 +29,7 @@ class DishForm(forms.ModelForm):
 
 class DishNameSearchForm(forms.Form):
     name = forms.CharField(max_length=255, required=False)
+
+
+class CookUsernameSearchForm(forms.Form):
+    username = forms.CharField(max_length=255, required=False)

@@ -1,9 +1,15 @@
 {% extends "base.html" %}
+{% load crispy_forms_filters %}
 
 {% block content %}
   <h1>Info of all our cooks
     <a href="{% url 'menu:cook-create' %}" class="btn btn-primary link-to-page">Add new cook</a>
   </h1>
+
+  <form action="" method="get" class="form-inline">
+    {{ search_form|crispy }}
+    <button type="submit" class="btn btn-secondary ml-2">🔍︎</button>
+  </form>
 
   <table>
     <tr>
