@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>
+    All dish type in our database
+    <a href="{% url 'menu:dish-type-create' %}" class="btn btn-primary link-to-page">Add new dish type</a>
+  </h1>
+
+  <ul>
+    {% for dishtype in dishtype_list %}
+    	<li>
+        {{ dishtype.name }}
+        <a href="{% url 'menu:dish-type-delete' pk=dishtype.id%}" style="text-decoration: none">Delete 🗑️</a>
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock %}

@@ -8,7 +8,7 @@
     {% csrf_token %}
     {{ form|crispy }}
     <input type="submit" value="Create" class="btn btn-primary">
-    <a href="{% url "menu:cook-list" %}" style="color: white; text-decoration: none" class="btn btn-danger">
+    <a href="{% url "menu:cook-list" %}" style="color: white; text-decoration: none" class="btn btn-secondary">
       Cancel
     </a>
   </form>

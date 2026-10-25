@@ -14,6 +14,7 @@ def index(request) -> HttpResponse:
 
     num_cooks = Cook.objects.count()
     num_dishes = Dish.objects.count()
+    num_dishtypes = DishType.objects.count()
 
     num_visits = request.session.get("num_visits", 0)
     request.session[num_visits] = num_visits + 1
@@ -21,15 +22,26 @@ def index(request) -> HttpResponse:
     context = {
         "num_cooks": num_cooks,
         "num_dishes": num_dishes,
+        "num_dishtypes": num_dishtypes,
         "num_visits": num_visits + 1,
     }
     return render(request, "menu/index.html", context=context)
 
 
+class DishTypeCreateView(LoginRequiredMixin, generic.CreateView):
+    model = DishType
+    fields = "__all__"
+    success_url = reverse_lazy("menu:dish-type-list")
+
+
 class DishTypeListView(LoginRequiredMixin, generic.ListView):
     model = DishType
     paginate_by = 5
-    template_name = "menu/dish_type_list.html"
+
+
+class DishTypeDeleteView(LoginRequiredMixin, generic.DeleteView):
+    model = DishType
+    success_url = reverse_lazy("menu:dish-type-list")
 
 
 class DishListView(LoginRequiredMixin, generic.ListView):
