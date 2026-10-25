@@ -1,13 +1,18 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <h1>These are all our dishes on the menu</h1>
+  <h1>
+    These are all our dishes on the menu
+    <a href="{% url 'menu:dish-create' %}" class="btn btn-primary" style="text-decoration: none">Add new dish</a>
+  </h1>
   <table>
     <tr>
       <th>ID</th>
       <th>Name</th>
       <th>Type</th>
       <th>Price</th>
+      <th></th>
+      <th></th>
     </tr>
     {% for dish in dish_list %}
       <tr>
@@ -15,6 +20,12 @@
         <td>{{ dish.name }}</td>
         <td>{{ dish.dish_type }}</td>
         <td>{{ dish.price }}</td>
+        <td>
+          <a href="{% url 'menu:dish-update' pk=dish.id %}" style="text-decoration: none">Edit ✏️</a>
+        </td>
+        <td>
+          <a href="{% url 'menu:dish-delete' pk=dish.id %}" style="text-decoration: none">Delete 🗑️</a>
+        </td>
       </tr>
     {% endfor %}
   </table>
