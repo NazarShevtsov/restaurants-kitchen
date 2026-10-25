@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block title %}
+    <title>Home | Menu Management</title>
+{% endblock %}
+
+{% block content %}
+<section id="food-menu">
+    <div class="container">
+        <header class="section-header">
+            <h3>Menu Management</h3>
+            <p>Welcome to our restaurant management system. Manage cooks, dishes and dish types in one place.</p>
+        </header>
+
+        <div class="row">
+            <div class="col-sm-6 col-md-4">
+                <div class="single-menu">
+                    <h4>Our Cooks</h4>
+                    <span>{{ num_cooks }} cook{{ num_cooks|pluralize }}</span>
+                    <p>Meet our team and manage restaurant staff.</p>
+                    <div class="dish-actions">
+                        <a href="{% url 'menu:cook-list' %}">View Cooks</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6 col-md-4">
+                <div class="single-menu">
+                    <h4>Our Dishes</h4>
+                    <span>{{ num_dishes }} dish{{ num_dishes|pluralize }}</span>
+                    <p>Browse the menu and manage available dishes.</p>
+                    <div class="dish-actions">
+                        <a href="{% url 'menu:dish-list' %}">View Dishes</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6 col-md-4">
+                <div class="single-menu">
+                    <h4>Dish Types</h4>
+                    <p>Organize dishes into categories and manage their types.</p>
+                    <div class="dish-actions">
+                        <a href="{% url 'menu:dish-type-list' %}">View Dish Types</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-12">
+                <p>You have already visited us {{ num_visits }} time{{ num_visits|pluralize }}.</p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
