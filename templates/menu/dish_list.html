@@ -1,38 +1,88 @@
 {% extends "base.html" %}
+{% load static %}
 {% load crispy_forms_filters %}
 
-{% block content %}
-  <h1>
-    These are all our dishes on the menu
-    <a href="{% url 'menu:dish-create' %}" class="btn btn-primary" style="text-decoration: none">Add new dish</a>
-  </h1>
-  <form action="" method="get" class="form-inline">
-    {{ search_form|crispy }}
-    <button type="submit" class="btn btn-secondary ml-2">🔍︎</button>
-  </form>
-  <table>
-    <tr>
-      <th>ID</th>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Price</th>
-      <th></th>
-      <th></th>
-    </tr>
-    {% for dish in dish_list %}
-      <tr>
-        <td><a href="{% url "menu:dish-detail" pk=dish.id %}">{{ dish.id }}</a></td>
-        <td>{{ dish.name }}</td>
-        <td>{{ dish.dish_type }}</td>
-        <td>{{ dish.price }}</td>
-        <td>
-          <a href="{% url 'menu:dish-update' pk=dish.id %}" style="text-decoration: none">Edit ✏️</a>
-        </td>
-        <td>
-          <a href="{% url 'menu:dish-delete' pk=dish.id %}" style="text-decoration: none">Delete 🗑️</a>
-        </td>
-      </tr>
-    {% endfor %}
-  </table>
+{% block title %}
+    <title>Our Food Menu | Menu Management</title>
+{% endblock %}
 
+{% block content %}
+<section id="food-menu">
+    <div class="container">
+        <header class="section-header">
+            <h3>Delicious Food Menu</h3>
+            <p>Discover all the dishes available on our menu.</p>
+        </header>
+
+        <div class="row mb-4">
+            <div class="col-md-8">
+                <form action="" method="get" class="form-inline">
+                    {{ search_form|crispy }}
+                    <button type="submit" class="btn btn-secondary ml-2">
+                        Search
+                    </button>
+                </form>
+            </div>
+
+            <div class="col-md-4 text-md-right mt-3 mt-md-0">
+                <a href="{% url 'menu:dish-create' %}" class="btn btn-primary">
+                    Add new dish
+                </a>
+            </div>
+        </div>
+
+        <div class="row">
+            {% for dish in dish_list %}
+                <div class="col-sm-6 col-md-4 col-lg-3">
+                  <div class="single-menu">
+                      <a href="{% url 'menu:dish-detail' pk=dish.id %}" class="dish-image-link">
+                          {% if forloop.counter0|divisibleby:9 %}
+                              <img class="img-fluid dish-image" src="{% static 'img/menu-1.jpg' %}" alt="{{ dish.name }}">
+                          {% elif forloop.counter0|add:8|divisibleby:9 %}
+                              <img class="img-fluid dish-image" src="{% static 'img/menu-2.jpg' %}" alt="{{ dish.name }}">
+                          {% elif forloop.counter0|add:7|divisibleby:9 %}
+                              <img class="img-fluid dish-image" src="{% static 'img/menu-3.jpg' %}" alt="{{ dish.name }}">
+                          {% elif forloop.counter0|add:6|divisibleby:9 %}
+                              <img class="img-fluid dish-image" src="{% static 'img/menu-4.jpg' %}" alt="{{ dish.name }}">
+                          {% elif forloop.counter0|add:5|divisibleby:9 %}
+                              <img class="img-fluid dish-image" src="{% static 'img/menu-5.jpg' %}" alt="{{ dish.name }}">
+                          {% elif forloop.counter0|add:4|divisibleby:9 %}
+                              <img class="img-fluid dish-image" src="{% static 'img/menu-6.jpg' %}" alt="{{ dish.name }}">
+                          {% elif forloop.counter0|add:3|divisibleby:9 %}
+                              <img class="img-fluid dish-image" src="{% static 'img/menu-7.jpg' %}" alt="{{ dish.name }}">
+                          {% elif forloop.counter0|add:2|divisibleby:9 %}
+                              <img class="img-fluid dish-image" src="{% static 'img/menu-8.jpg' %}" alt="{{ dish.name }}">
+                          {% else %}
+                              <img class="img-fluid dish-image" src="{% static 'img/menu-9.jpg' %}" alt="{{ dish.name }}">
+                          {% endif %}
+                      </a>
+
+                      <h4>
+                          <a href="{% url 'menu:dish-detail' pk=dish.id %}">
+                              {{ dish.name }}
+                          </a>
+                      </h4>
+
+                      <span>{{ dish.price }} zł</span>
+
+                      <p><strong>Type:</strong> {{ dish.dish_type }}</p>
+
+                      {% if dish.description %}
+                          <p>{{ dish.description }}</p>
+                      {% endif %}
+
+                      <div class="dish-actions">
+                          <a href="{% url 'menu:dish-update' pk=dish.id %}">Edit</a>
+                          <a href="{% url 'menu:dish-delete' pk=dish.id %}">Delete</a>
+                      </div>
+                  </div>
+                </div>
+            {% empty %}
+                <div class="col-12">
+                    <p>No dishes found.</p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
 {% endblock %}

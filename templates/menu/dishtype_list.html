@@ -1,17 +1,44 @@
 {% extends "base.html" %}
 
-{% block content %}
-  <h1>
-    All dish type in our database
-    <a href="{% url 'menu:dish-type-create' %}" class="btn btn-primary link-to-page">Add new dish type</a>
-  </h1>
+{% block title %}
+    <title>Dish Types | Menu Management</title>
+{% endblock %}
 
-  <ul>
-    {% for dishtype in dishtype_list %}
-    	<li>
-        {{ dishtype.name }}
-        <a href="{% url 'menu:dish-type-delete' pk=dishtype.id%}" style="text-decoration: none">Delete 🗑️</a>
-      </li>
-    {% endfor %}
-  </ul>
+{% block content %}
+<section id="food-menu">
+    <div class="container">
+        <header class="section-header">
+            <h3>Dish Types</h3>
+            <p>Browse and manage the categories of dishes available in our restaurant.</p>
+        </header>
+
+        <div class="row mb-4">
+            <div class="col-12 text-right">
+                <a href="{% url 'menu:dish-type-create' %}" class="btn btn-primary">
+                    Add new dish type
+                </a>
+            </div>
+        </div>
+
+        <div class="row">
+            {% for dishtype in dishtype_list %}
+                <div class="col-sm-6 col-md-4 col-lg-3">
+                    <div class="single-menu dish-type-card">
+                        <h4>{{ dishtype.name }}</h4>
+
+                        <div class="dish-actions">
+                            <a href="{% url 'menu:dish-type-delete' pk=dishtype.id %}">
+                                Delete
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <div class="col-12">
+                    <p>No dish types found.</p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
 {% endblock %}
